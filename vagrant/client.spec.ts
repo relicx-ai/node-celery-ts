@@ -42,7 +42,7 @@ Mocha.describe("Celery.Client", () => {
         });
 
         const task = client.createTask("tasks.add");
-        const applied = task.applyAsync({ args: [10, 15], kwargs: { } });
+        const applied = await task.applyAsync({ args: [10, 15], kwargs: { } });
         const result = await applied.get();
 
         await client.end();

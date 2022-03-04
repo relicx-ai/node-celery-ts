@@ -128,7 +128,7 @@ export class Task<T> {
      * @returns A `Result` object. If `ignoreResult` is true or the client was
      *          created with a `NullBackend`, `Result#get` cannot be invoked.
      */
-    public applyAsync({
+    public async applyAsync({
         args,
         compression = Packer.Compressor.Identity,
         eta,
@@ -138,7 +138,7 @@ export class Task<T> {
         priority = 0,
         queue = this.queue,
         serializer = Packer.Serializer.Json,
-    }: TaskApplyOptions): Result<T> {
+    }: TaskApplyOptions): Promise<Result<T>> {
         const backend = (() => {
             if (ignoreResult) {
                 return new NullBackend();
@@ -187,7 +187,7 @@ export class Task<T> {
             }
         };
 
-        tryPublish();
+        await tryPublish();
 
         return result;
     }

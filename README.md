@@ -30,7 +30,7 @@ const client: Celery.Client = Celery.createClient({
 });
 
 const task: Celery.Task<number> = client.createTask<number>("tasks.add");
-const result: Celery.Result<number> = task.applyAsync({
+const result: Celery.Result<number> = await task.applyAsync({
 	args: [0, 1],
 	kwargs: { },
 });
@@ -90,7 +90,7 @@ const client: Celery.Client = Celery.createClient({
 });
 
 const task: Celery.Task<number> = client.createTask<number>("tasks.add");
-const result: Celery.Result<number> = task.applyAsync({
+const result: Celery.Result<number> = await task.applyAsync({
 	args: [0, 1],
 	compression: Celery.Compressor.Zlib,
 	eta: new Date(Date.now() + 1000),
